@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { pusherClient } from "./lib/pusher";
+import { sendMessage } from "./lib/action";
 
 
 interface message {
@@ -13,11 +15,21 @@ export default function Home() {
 
   const handleSend = async () => {
     if (text) {
-      const newMessage = { text: text };
-      setMessages([...messages, newMessage]);
-      setText("");
+      sendMessage(text);
     }
   }
+
+  useEffect(() => {
+    pusherClient.subscribe("chat").bind("message", (data: message) => {
+      setMessages((prev) => [...prev, data]);
+    }
+    );
+
+    return () => {
+      pusherClient.unsubscribe("chat");
+    }
+  }, []);
+
 
   return (
     <div className="w-full">
