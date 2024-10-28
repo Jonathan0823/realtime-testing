@@ -21,11 +21,11 @@ export default function Home() {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col mx-auto bg-slate-300 max-w-3xl items-center justify-center">
+      <div className="flex flex-col mx-auto bg-slate-300 max-w-3xl pb-5 items-center justify-center">
         <div className="text-black">Chat</div>
         <div className="flex flex-col w-full min-h-96 pb-7">
           {messages ? (messages.map((message: message, index) => (
-            <div key={index} className="flex flex-row w-full text-black">
+            <div key={index} className="flex flex-row w-full text-black px-4">
               <div className="w-3/4">{message.text}</div>
             </div>
           ))) : (
